@@ -434,6 +434,61 @@
       const steps = ['letter', 'timer', 'cards', 'photo'];
       return steps[step - 1] || null;
     }
-  </script>
+  // ระบบเล่นเพลง
+const audio = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+
+function toggleMusic() {
+  if (audio.paused) {
+    audio.play();
+    musicBtn.innerText = "⏸️ พักเพลง";
+  } else {
+    audio.pause();
+    musicBtn.innerText = "🎵 เปิดเพลง";
+  }
+}
+
+// เอฟเฟกต์หัวใจลอย
+function createHeartExplosion() {
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement('div');
+    heart.innerHTML = '❤️';
+    heart.style.position = 'fixed';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.top = '100vh';
+    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    heart.style.transition = 'transform 2.5s ease-out, opacity 2.5s ease-out';
+    heart.style.zIndex = '9999';
+    heart.style.pointerEvents = 'none';
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.style.transform = `translateY(-110vh) rotate(${Math.random() * 360}deg)`;
+      heart.style.opacity = '0';
+    }, 50);
+
+    setTimeout(() => { heart.remove(); }, 2500);
+  }
+}</script>
+<!-- แท็กเล่นเพลง -->
+<audio id="bgMusic" loop src="music.mp3"></audio>
+
+<!-- ปุ่มควบคุม -->
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 999; display: flex; gap: 10px;">
+  <button id="musicBtn" onclick="toggleMusic()" style="padding: 10px 15px; border-radius: 20px; border: none; background: #ff4b2b; color: white; font-weight: bold;">🎵 เปิดเพลง</button>
+  <button onclick="createHeartExplosion()" style="padding: 10px 15px; border-radius: 20px; border: none; background: #ff416c; color: white; font-weight: bold;">💖 กดส่งรัก</button>
+</div>
+
+<!-- Photo Gallery -->
+<div id="memoryGallery" style="padding: 30px 15px; text-align: center; background: rgba(255, 255, 255, 0.9); margin: 20px 10px; border-radius: 15px;">
+  <h3 style="color: #ff4b2b; margin-bottom: 15px;">Our Memories ❤️</h3>
+  <div style="display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px;">
+    <img src="photo1.jpg" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;" alt="Memory 1">
+    <img src="photo2.jpg" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;" alt="Memory 2">
+    <img src="photo3.jpg" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;" alt="Memory 3">
+  </div>
+</div>
+  
+  
 </body>
 </html>
